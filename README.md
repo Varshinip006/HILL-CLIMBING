@@ -1,6 +1,6 @@
 <h1>ExpNo 5 : Implement Simple Hill Climbing Algorithm</h1> 
-<h3>Name:             </h3>
-<h3>Register Number:             </h3>
+<h3>Name: Priya Varshini P            </h3>
+<h3>Register Number: 212224240119          </h3>
 <H3>Aim:</H3>
 <p>Implement Simple Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration </p>
 <h2> Theory: </h2>
@@ -38,6 +38,53 @@ Feedback is provided in terms of heuristic function
 <h3>Step-4:</h3>
 <p> Lopp Step -2 and Step-3  until we achieve the score to be Zero to achieve Global Minima.</p>
 
+## Program
+```
+import random
+import string
+
+def generate_random_solution(ans):
+    l = len(ans)
+    return [random.choice(string.printable) for _ in range(l)]
+
+def mutate(soln):
+    ind = random.randint(0, len(soln) - 1)
+    soln[ind] = random.choice(string.printable)
+    return soln
+
+def evaluate(solution, answer):
+    diff = 0
+    for i in range(len(solution)):
+        diff += abs(ord(answer[i]) - ord(solution[i]))
+    return diff
+
+def simplehillclimbing():
+    answer = input("Enter target string: ")
+    best = generate_random_solution(answer)
+    best_score = evaluate(best, answer)
+    iterations = 0
+    max_iterations = 100000
+
+    while best_score != 0 and iterations < max_iterations:
+        print("Score:", best_score, "String:", ''.join(best))
+        new_soln = mutate(best.copy())
+        score = evaluate(new_soln, answer)
+
+        if score < best_score:
+            best = new_soln
+            best_score = score
+
+        iterations += 1
+
+    if best_score == 0:
+        print("\nTarget Found:", ''.join(best))
+    else:
+        print("\nStopped after max iterations.")
+        print("Best found:", ''.join(best))
+
+simplehillclimbing()
+```
+
 <hr>
 <h2>Sample Input and Output</h2>
 <h2>Sample String:</h2> Artificial Intelligence
@@ -59,3 +106,5 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+<img width="965" height="756" alt="image" src="https://github.com/user-attachments/assets/943703de-fa77-47ec-9ae9-8a2499baed42" />
+
